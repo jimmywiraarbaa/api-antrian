@@ -2,17 +2,13 @@ const express = require('express');
 const router = express.Router();
 const {
   createAntrian,
-  getAllAntrian,
-  getAntrianById,
-  updateAntrian,
-  deleteAntrian
+  getAntrian,
+  // updateAntrian,
 } = require('../controllers/antrianControllers');
 
 // endpoint
 router.post('/', createAntrian);        // POST /api/antrian
-router.get('/', getAllAntrian);        // GET /api/antrian
-router.get('/:id', getAntrianById);    // GET /api/antrian/:id
-router.put('/:id', updateAntrian);     // PUT /api/antrian/:id
-router.delete('/:id', deleteAntrian);  // DELETE /api/antrian/:id
+router.get('/', getAntrian);        // GET /api/antrian
+// router.put('/:id', updateAntrian);     // PUT /api/antrian/:id
 
 module.exports = router;
