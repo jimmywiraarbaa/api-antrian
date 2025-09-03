@@ -57,3 +57,35 @@ exports.createAntrian = async (req, res) => {
     }
 };
 
+exports.updateAntrian = async (req, res) => {
+    try {
+        const { id } = req.params;       // ambil id antrian dari URL
+        const { status } = req.body;     // ambil status baru dari body request
+
+        // Validasi status baru
+        const allowedStatus = ['waiting', 'serving', 'done', 'skipped'];
+        if (!allowedStatus.includes(status)) {
+            return res.status(400).json({ message: "Status tidak valid" });
+        }
+
+        // Update status di database
+        const [result] = await db.query(
+            "UPDATE antrian SET status = ? WHERE id = ?",
+            [status, id]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Antrian tidak ditemukan" });
+        }
+
+        res.status(200).json({
+            message: "Status antrian berhasil diupdate",
+            id: id,
+            status: status
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Terjadi kesalahan server" });
+    }
+};
