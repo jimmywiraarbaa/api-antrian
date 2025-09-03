@@ -89,3 +89,28 @@ exports.updateAntrian = async (req, res) => {
         res.status(500).json({ message: "Terjadi kesalahan server" });
     }
 };
+
+exports.deleteAntrian = async (req, res) => {
+    try {
+        const { id } = req.params; // ambil id antrian dari URL
+
+        // Hapus data antrian dari database
+        const [result] = await db.query(
+            "DELETE FROM antrian WHERE id = ?",
+            [id]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Antrian tidak ditemukan" });
+        }
+
+        res.status(200).json({
+            message: "Antrian berhasil dihapus",
+            id: id
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Terjadi kesalahan server" });
+    }
+};
