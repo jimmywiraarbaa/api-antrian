@@ -9,10 +9,10 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/antrian', antrianRoutes);
 
-// const authMiddleware = require('./middleware/authMiddleware');
-// app.get('/api/me', authMiddleware, (req, res) => {
-//   res.json({ user: req.user });
-// });
+const authMiddleware = require('./middleware/authMiddleware');
+app.get('/api/me', authMiddleware, (req, res) => {
+  res.json({ user: req.user });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

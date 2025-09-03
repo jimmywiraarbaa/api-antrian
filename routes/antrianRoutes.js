@@ -6,7 +6,7 @@ const {
   getAntrianById,
   updateAntrian,
   deleteAntrian
-} = require('../controllers/antrianControlles');
+} = require('../controllers/antrianControllers');
 
 // endpoint
 router.post('/', createAntrian);        // POST /api/antrian
